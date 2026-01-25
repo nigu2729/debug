@@ -1,0 +1,5 @@
+{
+  "loader": "forge:obj",
+  "flip_v": true,
+  "model": "debug:models/block/sphere.obj"
+}
