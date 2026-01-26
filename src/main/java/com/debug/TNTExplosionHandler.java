@@ -1,5 +1,6 @@
 package com.debug;
 
+import com.debug.client.ARV2;
 import com.debug.client.ARenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
@@ -19,7 +20,7 @@ import static com.debug.client.ARenderer.*;
 public class TNTExplosionHandler {
 
     // 固定で使いたい半径（ブロック単位）
-    private static final int FIXED_RADIUS = 256;
+    private static final int FIXED_RADIUS = 16;
 
     // startCarve のデフォルトパラメータ
     private static final int DEFAULT_SHELLS_PER_TICK = 1;
@@ -59,7 +60,11 @@ public class TNTExplosionHandler {
                 try {
                     // float 版 startCarve を呼ぶ
                     ProgressiveCarver.startCarve(serverLevel, center, maxRadius, shellsPerTick, blocksPerTickFloat, removeFluids);
-                    new ARenderer.Builder(new ResourceLocation(Debug.MOD_ID, "block/sphere"),center).setSize(10).setRenderType(RenderType.cutout()).build().spawn();
+                    //new ARenderer.Builder(new ResourceLocation(Debug.MOD_ID, "block/sphere"),center).setSize(10).setRenderType(RenderType.cutout()).build().spawn();
+                    //new ARV2.Builder(new ResourceLocation(Debug.MOD_ID, "models/block/sphere.obj"), new ResourceLocation(Debug.MOD_ID, "block/sphere"), center).setSize(10).setRenderType(RenderType.cutout()).build().spawn();
+                    //new ARV2.Builder(new ResourceLocation(Debug.MOD_ID, "models/block/sphere.obj"), new ResourceLocation(Debug.MOD_ID, "block/whi"), center).setSizeAnim(5,100,0,200).setRenderType(RenderType.cutout()).build().spawn();
+                    //new ARV2.Builder(new ResourceLocation(Debug.MOD_ID, "models/block/line.obj"), new ResourceLocation(Debug.MOD_ID, "block/whi"), center ).setSizeAnim(10,20,0,400).setRotAnim(0, 0, 0, 0, 720, 0, 0, 400).setAlphaAnim(0,1,0,0,100,400).setMaxLife(400).setRenderType(RenderType.translucent()).build().spawn();
+                    new ARV2.Builder(new ResourceLocation(Debug.MOD_ID, "models/block/spheexp.obj"), new ResourceLocation(Debug.MOD_ID, "block/whi"), center ).setSizeAnim(0,200,0,200).setAlphaAnim(0,1,0,0,100,200).setMaxLife(200).setRenderType(RenderType.translucent()).build().spawn();
                 } catch (Throwable t) {
                     t.printStackTrace();
                 }

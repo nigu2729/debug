@@ -1,5 +1,5 @@
 package com.debug;
-
+/*
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
@@ -70,14 +70,14 @@ public class HasiraHandler {
             poseStack.translate(100, 140, 100);
             GeometricRenderer.drawLinearAnimatingSphereWireframe(linesBuffer, poseStack.last().pose(), new Vec3(100,100,100), 2.0f, 10.0f, 4000L, time, true, 32, 32, 0.5f, 0.9f, 1.0f, 1.0f);
             poseStack.popPose();
-            /*poseStack.pushPose();
-            poseStack.translate(110, 80, 110);
-            GeometricRenderer.drawSphereWireframe(linesBuffer, poseStack.last().pose(), 5.0f, 32, 32, 1.0f, 1.0f, 1.0f, 1.0f);
-            poseStack.popPose();*/
+            //poseStack.pushPose();
+            //poseStack.translate(110, 80, 110);
+            //GeometricRenderer.drawSphereWireframe(linesBuffer, poseStack.last().pose(), 5.0f, 32, 32, 1.0f, 1.0f, 1.0f, 1.0f);
+            //poseStack.popPose();
         }
         finally {
             poseStack.popPose();
             bufferSource.endBatch(RenderType.lines());
         }
     }
-}
+}*/
