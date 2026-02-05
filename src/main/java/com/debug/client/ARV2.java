@@ -151,6 +151,7 @@ public class ARV2 {
         // レンダリング設定
         // 半透明対応のため、translucentなど適切なRenderTypeをBuilderで指定すること
         com.mojang.blaze3d.systems.RenderSystem.disableCull();
+        com.mojang.blaze3d.systems.RenderSystem.disableDepthTest();
         VertexConsumer vertexConsumer = buffer.getBuffer(this.renderType);
         if (isBeamMode) {
             renderBeamLoop(ps, vertexConsumer, currentTick, rgb, alpha);
@@ -158,6 +159,7 @@ public class ARV2 {
             renderSingleModel(ps, vertexConsumer, rgb, alpha);
         }
         com.mojang.blaze3d.systems.RenderSystem.enableCull();
+        com.mojang.blaze3d.systems.RenderSystem.enableDepthTest();
         ps.popPose();
     }
 
@@ -202,7 +204,6 @@ public class ARV2 {
 
             // 最後のピースだけ、長さを調整する場合のロジックを入れるならここ
             // 今回は単純ループ
-
             renderSingleModel(ps, consumer, rgb, alpha);
             ps.popPose();
         }

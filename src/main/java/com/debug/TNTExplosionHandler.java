@@ -64,7 +64,12 @@ public class TNTExplosionHandler {
                     //new ARV2.Builder(new ResourceLocation(Debug.MOD_ID, "models/block/sphere.obj"), new ResourceLocation(Debug.MOD_ID, "block/sphere"), center).setSize(10).setRenderType(RenderType.cutout()).build().spawn();
                     //new ARV2.Builder(new ResourceLocation(Debug.MOD_ID, "models/block/sphere.obj"), new ResourceLocation(Debug.MOD_ID, "block/whi"), center).setSizeAnim(5,100,0,200).setRenderType(RenderType.cutout()).build().spawn();
                     //new ARV2.Builder(new ResourceLocation(Debug.MOD_ID, "models/block/line.obj"), new ResourceLocation(Debug.MOD_ID, "block/whi"), center ).setSizeAnim(10,20,0,400).setRotAnim(0, 0, 0, 0, 720, 0, 0, 400).setAlphaAnim(0,1,0,0,100,400).setMaxLife(400).setRenderType(RenderType.translucent()).build().spawn();
-                    new ARV2.Builder(new ResourceLocation(Debug.MOD_ID, "models/block/spheexp.obj"), new ResourceLocation(Debug.MOD_ID, "block/whi"), center ).setSizeAnim(0,200,0,200).setAlphaAnim(0,1,0,0,100,200).setMaxLife(200).setRenderType(RenderType.translucent()).build().spawn();
+                    new ARV2.Builder(new ResourceLocation(Debug.MOD_ID, "models/block/spheexp.obj"), new ResourceLocation(Debug.MOD_ID, "block/whi"), center ).setSizeAnim(0,200,0,100).setAlphaAnim(1,1,0,0,90,100).setMaxLife(100).setRenderType(RenderType.translucent()).build().spawn();
+                    new ARV2.Builder(new ResourceLocation(Debug.MOD_ID, "models/block/beam1.obj"), new ResourceLocation(Debug.MOD_ID, "block/whi"), center).setRenderType(RenderType.translucent()).setMaxLife(200).setRotAnim(0, 0, 0, 90, 0, 0, 100, 200).setSizeAnim(1,10,0,200)
+                            .asBeam(32.0f, 1024.0f, 0.0f)
+                            .setAlphaAnim(1.0f, 1.0f, 0.0f, 0, 190, 200)
+                            .build().spawn();
+                    //new ARV2.Builder(new ResourceLocation(Debug.MOD_ID, "models/block/mao.obj"), new ResourceLocation(Debug.MOD_ID, "block/whi"), center ).setSize(10).setMaxLife(1200).setRenderType(RenderType.translucent()).build().spawn();
                 } catch (Throwable t) {
                     t.printStackTrace();
                 }
