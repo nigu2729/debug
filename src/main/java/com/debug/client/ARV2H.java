@@ -53,6 +53,6 @@ public class ARV2H {
     }
     private static void spawnEffects(Vec3 pos) {
         new ARV2.Builder(new ResourceLocation(Debug.MOD_ID, "models/block/sphere.obj"), new ResourceLocation(Debug.MOD_ID, "block/whi"), pos).setSizeAnim(10, 0, 0, 5).setMaxLife(5).setRenderType(RenderType.translucent()).build().spawn();
-        new ARV2.Builder(new ResourceLocation(Debug.MOD_ID, "models/block/sphere.obj"), new ResourceLocation(Debug.MOD_ID, "block/sphere"), pos).setSizeAnim(0, 100, 5, 100).setMaxLife(100).setRenderType(RenderType.translucent()).build().spawn();
+        new ARV2.Builder(new ResourceLocation(Debug.MOD_ID, "models/block/sphere.obj"), new ResourceLocation(Debug.MOD_ID, "block/bla"), pos).setSizeAnim(0, 100, 5, 100).setMaxLife(100).setRenderType(RenderType.translucent()).build().spawn();
     }
 }
