@@ -1,6 +1,5 @@
 package com.debug.client;
 
-// 1. まず、イベントハンドラークラスを作成（例: RightClickHandler.java）
 import com.debug.Debug;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.particles.ParticleTypes;
@@ -13,37 +12,47 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = Debug.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
-public class ARV2H {
-    private long TickCounter = 0;
-    @Override
-    public void tick(){
-        super.tick();
-        TickCounter++;
-        if(TickCounter % 600 == 0){
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
+@Mod.EventBusSubscriber(modid = Debug.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
+public class ARV2H {
+    private static long TC = 0;
+    private static final List<DelayedTask> PENDING_TASKS = new ArrayList<>();
+    private record DelayedTask(long executeAt, Vec3 pos) {}
+    @SubscribeEvent
+    public static void onClientTickEvent(TickEvent.ClientTickEvent event) {
+        if (event.phase == TickEvent.Phase.START) {
+            TC++;
+            Iterator<DelayedTask> iterator = PENDING_TASKS.iterator();
+            while (iterator.hasNext()) {
+                DelayedTask task = iterator.next();
+                if (TC >= task.executeAt) {
+                    spawnEffects(task.pos);
+                    iterator.remove();
+                }
+            }
         }
     }
     @SubscribeEvent
     public static void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
-        Player player = event.getEntity();
-        var level = event.getLevel();
-        InteractionHand hand = event.getHand();
-        if (player.getItemInHand(hand).is(Items.STICK)) {
-            if (level.isClientSide) {
-                double ax = player.getX();
-                double ay = player.getY();
-                double az = player.getZ();
-                Vec3 pos = new Vec3(ax, ay, az);
-                new ARV2.Builder(new ResourceLocation(Debug.MOD_ID, "models/block/sphere.obj"), new ResourceLocation(Debug.MOD_ID, "block/whi"), pos).setSizeAnim(10,0,0,10).setMaxLife(10).setRenderType(RenderType.translucent()).build().spawn();
-                new ARV2.Builder(new ResourceLocation(Debug.MOD_ID, "models/block/sphere.obj"), new ResourceLocation(Debug.MOD_ID, "block/sphere"), pos).setSizeAnim(0,100,10,100).setMaxLife(100).setRenderType(RenderType.translucent()).build().spawn();
-
+        if (event.getLevel().isClientSide) {
+            Player player = event.getEntity();
+            if (player.getItemInHand(event.getHand()).is(Items.STICK)) {
+                PENDING_TASKS.add(new DelayedTask(TC + 200, player.position()));
             }
         }
+    }
+    private static void spawnEffects(Vec3 pos) {
+        new ARV2.Builder(new ResourceLocation(Debug.MOD_ID, "models/block/sphere.obj"), new ResourceLocation(Debug.MOD_ID, "block/whi"), pos).setSizeAnim(10, 0, 0, 5).setMaxLife(5).setRenderType(RenderType.translucent()).build().spawn();
+        new ARV2.Builder(new ResourceLocation(Debug.MOD_ID, "models/block/sphere.obj"), new ResourceLocation(Debug.MOD_ID, "block/sphere"), pos).setSizeAnim(0, 100, 5, 100).setMaxLife(100).setRenderType(RenderType.translucent()).build().spawn();
     }
 }
